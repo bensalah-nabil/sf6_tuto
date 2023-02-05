@@ -17,7 +17,6 @@ class FirstController extends AbstractController
             'firstname' => 'Nabil'
         ]);
     }
-
     #[Route('/sayHello/{name}', name: 'say_hello')]
     public function sayHello($name): Response
     {
@@ -34,6 +33,10 @@ class FirstController extends AbstractController
     public function multiplication($int1, $int2){
         $resultat = $int1 * $int2;
         return new Response("<h1> $resultat </h1>");
+    }
+    #[Route('/template',name: 'template')]
+    public function template(){
+        return $this->render('template.html.twig');
     }
     #[Route('/order/{myVar}',name: 'test_order_route')]
     public function testOrderRoute($myVar){
