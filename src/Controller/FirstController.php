@@ -14,14 +14,17 @@ class FirstController extends AbstractController
     {
         return $this->render('first/index.html.twig', [
             'name' => 'Ben Salah',
-            'firstname' => 'Nabil',
+            'firstname' => 'Nabil'
         ]);
     }
 
     #[Route('/sayHello/{name}', name: 'say_hello')]
     public function sayHello($name): Response
     {
-        return $this->render('first/hello.html.twig',['nom' => $name]);
+        return $this->render('first/hello.html.twig',[
+            'nom' => $name,
+            'path'=>'    '
+        ]);
     }
     #[Route(
         'multi/{int1}/{int2}',
