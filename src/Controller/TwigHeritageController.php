@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TwigHeritageController extends AbstractController
 {
-    #[Route('/twig/', name: 'app_twig_heritage')]
+    #[Route('/twig/', name: 'twig_heritage')]
     public function index(): Response
     {
         return $this->render('twig_heritage/index.html.twig', [

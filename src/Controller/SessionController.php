@@ -2,24 +2,25 @@
 
 namespace App\Controller;
 
-use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SessionController extends AbstractController
 {
-    #[Route('/session', name: 'app_session')]
-    public function index(\Symfony\Component\HttpFoundation\Request $request): Response
+    #[Route('/session', name: 'session')]
+    public function index(Request $request): Response
     {
+        // session_start()
         $session = $request->getSession();
-        if ($session->has('AccessNb')){
-            $AccessNumber = $session->get('AccessNb') + 1;
+        if ($session->has('nbVisite')) {
+            $nbreVisite = $session->get('nbVisite') + 1;
 
-        }else{
-            $AccessNumber = 1;
+        } else {
+            $nbreVisite = 1;
         }
-        $session->set('AccessNb',$AccessNumber);
+        $session->set('nbVisite', $nbreVisite);
         return $this->render('session/index.html.twig');
     }
 }
