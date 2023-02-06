@@ -32,20 +32,20 @@
         </div>
     </form>
     <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li><a class="dropdown-item" href="{{path('app_logout')}}">Logout</a></li>
-                {% else %}
-                    <li><a class="dropdown-item" href="{{path('app_login')}}">Login</a></li>
-                    <li><a class="dropdown-item" href="{{path('app_register')}}">Register</a></li>
-                {% endif %}
+{#    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">#}
+{#        <li class="nav-item dropdown">#}
+{#            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>#}
+{#            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">#}
+{#                {% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+{#                    <li><a class="dropdown-item" href="{{path('app_logout')}}">Logout</a></li>#}
+{#                {% else %}#}
+{#                    <li><a class="dropdown-item" href="{{path('app_login')}}">Login</a></li>#}
+{#                    <li><a class="dropdown-item" href="{{path('app_register')}}">Register</a></li>#}
+{#                {% endif %}#}
 
-            </ul>
-        </li>
-    </ul>
+{#            </ul>#}
+{#        </li>#}
+{#    </ul>#}
 </nav>
 
 <div id="layoutSidenav">
