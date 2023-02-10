@@ -20,6 +20,15 @@ class PersonneController extends AbstractController
        return $this->render('personne/index.html.twig',
            ['personnes'=>$personnes]);
     }
+
+    #[Route('/{id<\d+>}',name: 'personne.list')]
+    public function index(ManagerRegistry $doctrine) : Response
+    {
+        $repository = $doctrine->getRepository(Personne::class);
+        $personnes = $repository->findAll();
+        return $this->render('personne/index.html.twig',
+            ['personnes'=>$personnes]);
+    }
     #[Route('/add', name: 'personne.add')]
     public function addPersonne(ManagerRegistry $doctrine): Response
     {
