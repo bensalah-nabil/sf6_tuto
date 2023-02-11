@@ -16,4 +16,31 @@
         </div>
     {% endfor %}
     </div>
+    {%  if isPaginated %}
+        <div class="row mt-2">
+            <nav aria-label="col Page navigation example">
+                <ul class="pagination">
+                    {% if page != 1 %}
+                        <li class="page-item"><a class="page-link"
+                         href="href="#{{ path('personne.list.all', { page: page - 1, nber: nber }) }}">
+                            Previous
+                            </a></li>
+                    {% endif %}
+                    {% for i in range(1, nbPage) %}
+                        <li class="page-item"><a class="page-link"
+                           href="#{{ path('personne.list.all', { page: i, nber: nber }) }}">
+                                {{ i }}
+                            </a></li>
+                    {% endfor %}
+                    {% if page != nbPage %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="href="#{{ path('personne.list.all', { page: page + 1, nber: nber }) }}">
+                            Next
+                            </a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+    {% endif %}
 {% endblock %}
