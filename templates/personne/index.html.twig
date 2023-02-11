@@ -4,16 +4,16 @@
 
 {% block body %}
     <div class="row"></div>
-        {% for personne in  personnes %}
+    {% for personne in  personnes %}
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{ personne.name }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ personne.firstname }} {{ personne.name }}</h6>
                 <p class="card-text">Age : {{ personne.age }} </p>
                 <p class="card-text"> {{ personne.address }} </p>
-                <a href="#" class="card-link">ToDo</a>
+                <a href="{{ path('personne.detail', {id: personne.id}) }}" class="card-link">Details</a>
             </div>
         </div>
-        {% endfor %}
+    {% endfor %}
     </div>
 {% endblock %}
