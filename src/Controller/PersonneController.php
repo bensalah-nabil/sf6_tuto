@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Personne;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,8 +38,7 @@ class PersonneController extends AbstractController
                 'nber' => $nber,
             ]);
     }
-
-    #[Route('/{id<\d+>}',name: 'personne.detail')]
+    #[Route('/{id<\d+>}',name: 'personne.detail')]  //ParamConverter
     public function detail(Personne $personne = null) : Response
     {
         if (!$personne){
@@ -66,5 +66,40 @@ class PersonneController extends AbstractController
         return $this->render('personne/detail.html.twig', [
             'personne' => $personne,
         ]);
+    }
+
+    #[Route('/delete/{id}',name: 'personne.delete')]
+    public function deletePersonne(Personne $personne = null, ManagerRegistry $doctrine): RedirectResponse{
+        if ($personne){
+            $manager = $doctrine->getManager();
+            // Ajoute la fct de supp dans la transaction
+            $manager->remove($personne);
+            $manager->flush();
+            $this->addFlash('success',"La personne a été suppeime avec succés");
+        }else{
+            $this->addFlash('error',"La personne inexistant");
+        }
+        return $this->redirectToRoute('personne.list.all');
+    }
+
+    #[Route('/update/{id}/{name}/{firstname}/{age}/{address}',name: 'personne.update')]
+    public function updatePersonne(Personne $personne= null,$doctrine, $name, $firstname, $age, $address){
+        //Vérifier que la personne à mettre à jour existe
+        if ($personne) {
+            // Si la personne existe => mettre a jour notre personne + message de succes
+            $personne->setName($name);
+            $personne->setFirstname($firstname);
+            $personne->setAge($age);
+            $personne->setAddress($address);
+            $manager = $doctrine->getManager();
+            $manager->persist($personne);
+
+            $manager->flush();
+            $this->addFlash('success', "La personne a été mis à jour avec succès");
+        }  else {
+            //Sinon  retourner un flashMessage d'erreur
+            $this->addFlash('error', "Personne innexistante");
+        }
+        return $this->redirectToRoute('personne.list.all');
     }
 }
