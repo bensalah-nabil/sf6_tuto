@@ -26,10 +26,8 @@ class Personne
     #[ORM\Column(length: 50)]
     private ?string $Address = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    #[ORM\OneToOne(inversedBy: 'personne', cascade: ['persist', 'remove'])]
+    private ?Profile $profile = null;
 
     public function getFirstName(): ?string
     {
@@ -75,6 +73,18 @@ class Personne
     public function setAddress(string $Address): self
     {
         $this->Address = $Address;
+
+        return $this;
+    }
+
+    public function getProfile(): ?profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?profile $profile): self
+    {
+        $this->profile = $profile;
 
         return $this;
     }
