@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\ProfileRepository;
+use App\Trait\timestamptrait;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProfileRepository::class)]
+#[ORM\HasLifecycleCallbacks()]
 class Profile
 {
+    use timestamptrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

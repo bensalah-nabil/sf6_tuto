@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PersonneRepository;
+use App\Trait\timestamptrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -10,8 +11,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Faker\Provider\cs_CZ\DateTime;
 
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
+#[ORM\HasLifecycleCallbacks()]
 class Personne
 {
+    use timestamptrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -38,11 +41,6 @@ class Personne
     #[ORM\ManyToOne(inversedBy: 'personnes')]
     private ?Job $job = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $createdAt = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
@@ -145,43 +143,5 @@ class Personne
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-}
-
-/**
- * @ORM\PreUpdate()
- */
-public function onPreUpdate(){
-    $this->createdAt = new  \DateTime();
-    $this->updatedAt = new  \DateTime();
-
-}
-
-/**
- * @ORM\PreUpdate()
- */
-public function onPrePersist(){
 
 }
